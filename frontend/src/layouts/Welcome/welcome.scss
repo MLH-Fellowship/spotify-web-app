@@ -1,0 +1,95 @@
+.button--login{
+    background-color: #1DB954;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 15px;
+    padding: 15px 35px;
+}
+
+.button--login:hover{
+    background-color: #21d15f;
+}
+
+.playlist-cover{
+    box-shadow: 7px 7px 5px #ccc;
+}
+
+.animated-playlists{
+    animation: moveSlideShow 15s linear infinite;
+}
+
+.animated-playlists img{
+    margin: 1% 1%
+}
+
+.bounce{
+    animation: bounce 2s linear infinite;
+    object-fit: contain;
+    width: 100%;
+}
+
+@keyframes moveSlideShow {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-250px * 7))}
+}
+
+@keyframes bounce {
+    0% { transform: translateY(-5px)  }
+    50% { transform: translateY(10px) }
+    100% { transform: translateY(-5px) }
+}
+
+@mixin white-gradient {
+	background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+}
+
+$animationSpeed: 40s;
+
+// Animation
+@keyframes scroll {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(calc(-250px * 7))}
+}
+
+
+// Styling
+.slider {
+	background: white;
+	height: auto;
+	margin: auto;
+	overflow:hidden;
+	width: 100%;
+	
+	&::before,
+	&::after {
+		@include white-gradient;
+		content: "";
+		height: 100px;
+		position: absolute;
+		width: 200px;
+		z-index: 2;
+	}
+	
+	&::after {
+		right: 0;
+		top: 0;
+		transform: rotateZ(180deg);
+	}
+
+	&::before {
+		left: 0;
+		top: 0;
+	}
+	
+	.slide-track {
+		animation: scroll $animationSpeed linear infinite;
+		display: flex;
+		width: calc(250px * 14);
+	}
+	
+	.slide {
+		height: 100px;
+		width: 250px;
+	}
+}
