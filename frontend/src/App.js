@@ -8,6 +8,7 @@ import Login from './layouts/Login';
 import Home from './layouts/Home';
 import Helmet from 'react-helmet';
 import Capture from './layouts/Capture'
+import Redirection from './routing/Redirection';
 
 import PrivateRoute from './routing/PrivateRoute';
 import PublicRoute from './routing/PublicRoute';
@@ -25,6 +26,7 @@ function App() {
             <PublicRoute path="/login" component={Welcome} />
             <PrivateRoute exact path="/" component={Home}/>
             <PublicRoute path="/Capture" component={Capture} />
+            <PublicRoute path="/redirect" component={Redirection} />
           </Switch>
       </Router>
     </div>
