@@ -19,7 +19,7 @@ function Welcome() {
         _.times( num, ( i ) => {
             images.push(
 		        <div class="slide">
-                    <img className='playlist-cover' key={`${i}-image`} src={`https://picsum.photos/seed/${i+1}/100`} alt='Playlist Cover'/>
+                    <img className='playlist-cover' key={`${i}-image`} src={`https://picsum.photos/seed/${i+1}/200`} alt='Playlist Cover'/>
                 </div>
             )
         })
