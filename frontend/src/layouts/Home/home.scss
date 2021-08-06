@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@900&display=swap');
+.button--login{
+    margin-top: 24px;
+    background-color: #1DB954;
+    color: white;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 32px;
+    padding: 15px 35px;
+    box-shadow: 0px 0px 8px 0px #505050;
+}
+
+.button--login:hover{
+    background-color: #21d15f;
+}
+.song {
+    padding-left: 40px;
+    font-size: 64px;
+    font-weight: bold;
+    font-family: 'Work Sans', sans-serif;
+    color: #333333;
+}
+.album {
+    // padding-left: 90px;
+    font-size: 48px;
+    font-weight: bold;
+    font-family: 'Work Sans', sans-serif;
+    color: #424242;
+}
+.artist {
+    // padding-left: 90px;
+    font-size: 42px;
+    font-weight: bold;
+    font-family: 'Work Sans', sans-serif;
+    color: #575757;
+}
+.strong {
+    font-size: 64px;
+    font-weight: bold;
+    font-family: 'Work Sans', sans-serif;
+    color: #cccccc;
+}
+.greetings {
+    font-size: 64px;
+    font-weight: bold;
+    text-align: start;
+    padding-top: 24px;
+    margin-left: 64px;
+    font-family: 'Work Sans', sans-serif;
+    color: #333333;
+}
+.title-2 {
+    font-size: 64px;
+    font-weight: bold;
+    text-align: start;
+    margin-left: 24px;
+    font-family: 'Work Sans', sans-serif;
+    color: #333333;
+}
+
+.title-3 {
+    font-size: 28px;
+    text-align: start;
+    margin-left: 24px;
+    color: #333333;
+}
+
+.playlist-cover{
+    box-shadow: 7px 7px 5px #ccc;
+    height: 150px;
+}
+
+.animated-playlists{
+    animation: moveSlideShow 15s linear infinite;
+}
+
+.animated-playlists img{
+    margin: 1% 1%
+}
+
+.bounce{
+    animation: bounce 2s linear infinite;
+    object-fit: contain;
+    width: 100%;
+}
+
+@keyframes moveSlideShow {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-250px * 7))}
+}
+
+@keyframes bounce {
+    0% { transform: translateY(-5px)  }
+    50% { transform: translateY(10px) }
+    100% { transform: translateY(-5px) }
+}
+
+@mixin white-gradient {
+	background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+}
+
+$animationSpeed: 40s;
+
+// Animation
+@keyframes scroll {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(calc(-250px * 7))}
+}
+
+
+// Styling
+.slider {
+	background: white;
+	height: auto;
+	margin: auto;
+	overflow:hidden;
+	width: 100%;
+	
+	&::before,
+	&::after {
+		@include white-gradient;
+		content: "";
+		height: 170px;
+		position: absolute;
+		width: 200px;
+		z-index: 2;
+	}
+	
+	&::after {
+		right: 0;
+		top: 0;
+		transform: rotateZ(180deg);
+	}
+
+	&::before {
+		left: 0;
+		top: 0;
+	}
+	
+	.slide-track {
+		animation: scroll $animationSpeed linear infinite;
+		display: flex;
+		width: calc(250px * 14);
+	}
+	
+	.slide {
+		height: 170px;
+		width: 250px;
+	}
+}
