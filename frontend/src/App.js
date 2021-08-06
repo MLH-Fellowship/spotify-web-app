@@ -3,8 +3,9 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import Login from './pages/Login'
-import Home from './pages/Home'
+import Welcome from './layouts/Welcome';
+import Login from './layouts/Login';
+import Home from './layouts/Home';
 import Helmet from 'react-helmet';
 
 import PrivateRoute from './routing/PrivateRoute';
@@ -20,8 +21,7 @@ function App() {
       </Helmet>
       <Router>
         <Switch>
-            <PublicRoute path="/login" component={Login} />
-
+            <PublicRoute path="/login" component={Welcome} />
             <PrivateRoute exact path="/" component={Home}/>
           </Switch>
       </Router>

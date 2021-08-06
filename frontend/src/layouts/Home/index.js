@@ -6,6 +6,8 @@ const Home = () => {
     const [data, setData] = useState({});
     const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
 
+    console.log(data)
+
     // makes a request to spotify endpoint to get the user's playlists
     const handleGetPlaylists = () => {
         axios.get(PLAYLISTS_ENDPOINT, {
@@ -55,7 +57,7 @@ const Home = () => {
         <div>
             <h1> Hello from Home! </h1> 
             <button onClick={handleGetPlaylists}>Get Playlists</button>
-            {data?.items ? data.items.map((item) => <p>{item.name}</p>) : null}
+            {data?.items ? data.items.map((item) => <p>{item.name }</p>) : null}
         </div>
     );
 };
