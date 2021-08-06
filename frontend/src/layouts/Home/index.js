@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import auth from '../../auth/Auth';
 import { Helmet } from 'react-helmet';
@@ -93,13 +94,14 @@ const Home = () => {
                   <h1 className='greetings'>Hey there, <br/>{profile.display_name}! 👋</h1>
                 }
                 <Grid item xs={6}>
-                    <button 
-                            onClick={() => { console.log('Redirect to take pic');}}
+                  <Link to={'/capture'}>
+                    <button
                             className='button--login' 
                             size="large"
                         >
                         PLAY
                     </button>
+                  </Link>
                 </Grid>
                 <Grid item xs={6}>
                   <h3 className='title-3'>Click Play to take a pic for a song recomendation!</h3>
