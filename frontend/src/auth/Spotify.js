@@ -4,9 +4,14 @@ const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize"; // 
 const REDIRECT_URL_AFTER_LOGIN = "http://localhost:3000/"; // once logged in -> redirect to home
 const SPACE_DELIMITER = "%20";
 const SCOPES = [
+    "user-top-read",
+    "user-read-private",
+    "user-library-read",
+    "user-library-modify",
     "user-read-currently-playing",
     "user-read-playback-state",
     "playlist-read-private",
+    "user-modify-playback-state"
 ];
 const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
