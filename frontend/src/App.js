@@ -24,7 +24,7 @@ function App() {
       <Router>
         <Switch>
             <PublicRoute path="/login" component={Welcome} />
-            <PrivateRoute exact path="/" component={Home}/>
+            <PublicRoute exact path="/" component={Home}/>
             <PublicRoute path="/Capture" component={Capture} />
             <PublicRoute path="/redirect" component={Redirection} />
           </Switch>
