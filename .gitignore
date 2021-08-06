@@ -12,6 +12,8 @@ htmlcov/
 
 *.egg-info
 
+virtualenv
+
 # dependencies
 */node_modules
 
