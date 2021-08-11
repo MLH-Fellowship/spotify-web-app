@@ -19,7 +19,7 @@ CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 
 @app.route("/")
 def home():
-    return "Works"
+    return 200
 
 
 @app.route("/health")
