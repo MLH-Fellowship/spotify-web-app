@@ -2,8 +2,9 @@ import os
 from flask.helpers import url_for
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-from os import error
+from os import error, stat
 from flask import Flask, request, jsonify, url_for, redirect
+from flask_pymongo import PyMongo
 from . emotionDetection import getEmotion 
 import tensorflow as tf
 
@@ -13,6 +14,10 @@ from urllib.parse import urlencode
 import requests
 
 app = Flask(__name__)
+app.config["MONGO_URI"] = 'mongodb://' + os.environ['MONGODB_USERNAME'] + ':' + os.environ['MONGODB_PASSWORD'] + '@' + os.environ['MONGODB_HOSTNAME'] + ':27017/' + os.environ['MONGODB_DATABASE']
+
+mongo = PyMongo(app)
+db = mongo.db
 
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
@@ -34,6 +39,24 @@ def login():
 @app.route("/authorize")
 def authorize():
     return 'authorize'
+
+@app.route("/get-songs")
+def getSongs():
+    _todos = db.songs.find()
+
+    item = {}
+    data = []
+    for todo in _todos:
+        item = {
+            'id': str(todo['_id']),
+            'link': todo['link']
+        }
+        data.append(item)
+        
+    return jsonify(
+        status = True,
+        data = data
+    )
 
 def createSpotifyOAuth():
     return SpotifyOAuth(
