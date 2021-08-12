@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Switch,
+} from 'react-router-dom';
+
+import Welcome from './layouts/Welcome';
+import Login from './layouts/Login';
+import Home from './layouts/Home';
+import Helmet from 'react-helmet';
+import Capture from './layouts/Capture'
+import Redirection from './routing/Redirection';
+
+import PrivateRoute from './routing/PrivateRoute';
+import PublicRoute from './routing/PublicRoute';
+
 import './App.css';
 
-function App() {
+function App() {  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Helmet>
+          <title>SpotiME</title>
+      </Helmet>
+      <Router>
+        <Switch>
+            <PublicRoute path="/login" component={Welcome} />
+            <PublicRoute exact path="/" component={Home}/>
+            <PublicRoute path="/Capture" component={Capture} />
+            <PublicRoute path="/redirect" component={Redirection} />
+          </Switch>
+      </Router>
     </div>
   );
 }

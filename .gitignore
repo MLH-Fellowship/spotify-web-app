@@ -12,6 +12,8 @@ htmlcov/
 
 *.egg-info
 
+virtualenv
+
 # dependencies
 */node_modules
 
@@ -32,3 +34,6 @@ htmlcov/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# environment
+.env
