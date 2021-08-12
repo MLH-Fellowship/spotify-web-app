@@ -19,15 +19,30 @@ CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 
 @app.route("/")
 def home():
-    return 200
+    """
+    Returns 200 to test root endpoint
+
+    :return: 200
+    """
+    return "Works", 200
 
 
 @app.route("/health")
 def health():
-    return "Works"
+    """
+    Returns 200 to test health endpoint
+
+    :return: 200
+    """
+    return "Works", 200
   
 @app.route("/login")
 def login():
+    """
+    Returns an Spotify Authorization Token
+
+    :return: Spotify Token
+    """
     auth_url = createSpotifyOAuth().get_authorize_url()
     return redirect(auth_url)
 
@@ -36,6 +51,11 @@ def authorize():
     return 'authorize'
 
 def createSpotifyOAuth():
+    """
+    Returns an Spotify Authorization Token
+
+    :return: Spotify Token
+    """
     return SpotifyOAuth(
         client_id=''.join(CLIENT_ID),
         client_secret=''.join(CLIENT_SECRET),
@@ -46,18 +66,11 @@ def createSpotifyOAuth():
 @app.route("/imageToEmotion", methods=['POST'])
 def imageToEmotion():
     """
-    Detect emotion in image
-    ___ 
-    post:
-        form-data:
-        - image : jpg file
+    Returns an emotion based on an image
 
-        response:
-            200:
-                content: [emotion, score]
-            500 if model fails to detect / interval server errore 
-
-
+    :param image: jpg file
+    :return: 200 [emotion, score]
+    :return: 500 if model fails to detect / interval server error
     """
     try:
         image = request.files.get('image')
@@ -69,10 +82,14 @@ def imageToEmotion():
     except Exception as e:
             return str(e), 500
 
-
-#The following code is done with the help of this link:
-# https://www.youtube.com/watch?v=xdq6Gz33khQ
+"""
+The following code is done with the help of this link:
+https://www.youtube.com/watch?v=xdq6Gz33khQ
+"""
 class SpotifyAPI(object):
+    """
+    Spotify class to access the API methods
+    """
     access_token = None
     access_token_expires = datetime.datetime.now()
     access_token_did_expire = True
@@ -115,7 +132,6 @@ class SpotifyAPI(object):
         r = requests.post(token_url, data=token_data, headers=token_headers)
         if r.status_code not in range(200, 299):
             raise Exception("Could not authenticate client.")
-            # return False
         data = r.json()
         now = datetime.datetime.now()
         access_token = data['access_token']
@@ -154,7 +170,7 @@ class SpotifyAPI(object):
             return {}
         return r.json()
 
-    def base_search(self, query_params): # type
+    def base_search(self, query_params):
         headers = self.get_resource_header()
         endpoint = "https://api.spotify.com/v1/search"
         lookup_url = f"{endpoint}?{query_params}"
@@ -174,7 +190,6 @@ class SpotifyAPI(object):
                 if isinstance(operator_query, str):
                     query = f"{query} {operator} {operator_query}"
         query_params = urlencode({"q": query, "type": search_type.lower()})
-        print(query_params)
         return self.base_search(query_params)
 
 @app.route("/spotify")
