@@ -8,6 +8,7 @@ click==8.0.1
 cycler==0.10.0
 fer==21.0.3
 Flask==2.0.1
+Flask-Cors==3.0.10
 flatbuffers==1.12
 gast==0.4.0
 google-auth==1.34.0

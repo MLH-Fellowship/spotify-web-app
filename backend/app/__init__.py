@@ -3,6 +3,7 @@ from flask.helpers import url_for
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from os import error
+from flask_cors import CORS
 from flask import Flask, request, jsonify, url_for, redirect
 from . emotionDetection import getEmotion 
 import tensorflow as tf
@@ -13,6 +14,7 @@ from urllib.parse import urlencode
 import requests
 
 app = Flask(__name__)
+CORS(app)
 
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
@@ -80,6 +82,7 @@ def imageToEmotion():
         else:
             return "No result available", 500
     except Exception as e:
+            print(e)
             return str(e), 500
 
 """
