@@ -1,6 +1,6 @@
 matplotlib
 tensorflow-cpu
-opencv-python
+opencv-python-headless
 opencv-contrib-python
 pandas
 Pillow
