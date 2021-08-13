@@ -1,0 +1,8 @@
+matplotlib
+tensorflow-cpu
+opencv-python
+opencv-contrib-python
+pandas
+Pillow
+requests
+mtcnn>=0.1.1
