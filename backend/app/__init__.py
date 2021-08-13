@@ -82,7 +82,6 @@ def imageToEmotion():
         else:
             return "No result available", 500
     except Exception as e:
-            print(e)
             return str(e), 500
 
 """
