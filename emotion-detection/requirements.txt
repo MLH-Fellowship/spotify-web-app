@@ -1,4 +1,4 @@
-tensorflow-cpu
 -e ./ferhosted
 Flask==2.0.1
 matplotlib
+gunicorn==20.1.0
