@@ -1,12 +1,9 @@
 import os
 from flask.helpers import url_for
-import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-from os import error
 from flask_cors import CORS
 from flask import Flask, request, jsonify, url_for, redirect
 from . emotionDetection import getEmotion 
-import tensorflow as tf
 
 import base64
 import datetime

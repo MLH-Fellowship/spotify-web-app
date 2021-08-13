@@ -10,4 +10,4 @@ RUN apt install -y libgl1-mesa-glx libglib2.0-0 libglu1-mesa
 
 COPY . /moodify_backend
 
-CMD [ "gunicorn", "wsgi:app", "-w 4", "-b 0.0.0.0:8080"]
+CMD [ "gunicorn", "wsgi:app", "-w 4", "-b 0.0.0.0:5000"]
