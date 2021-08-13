@@ -12,10 +12,15 @@ function Capture(){
 
     const [capturedImage, setCapturedImage] = useState(null)
     const [playlistData, setPlaylistData] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [emotion, setEmotion] = useState('');
 
     const onRetakeClick = () => {
         setCapturedImage(null)
         setPlaylistData({});
+        setError(false);
+        setEmotion('');
     }
     const getData = async (endpoint, setFunction) => {
         try {
@@ -48,11 +53,22 @@ function Capture(){
         .then(function(response) {
             //handle success  --> redirect to display result
             console.log(response.data)
+            if(response.data[1] < 0.50){
+                setError(true);
+            }
+            else{
+                setEmotion(response.data[0]);
+                setError(false);
+            }
+            setLoading(false);
         })
         .catch(function(response) {
             //handle failure 
-            console.log(response)
+            console.log(response);
+            setError(true);
+            setLoading(false);
         })
+        
     }
 
     return (
