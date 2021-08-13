@@ -31,9 +31,28 @@ function Capture(){
         }
     };
 
-    const onSubmitClick = () => {
-        //Redirect to Loading screen 
-        getData('https://api.spotify.com/v1/playlists/1pW6gAv6FdeHajhcbbldo9', setPlaylistData);
+    const onSubmitClick = async () => {
+
+       //Send API request 
+        var formData = new FormData()
+        const base64Response = await fetch(capturedImage);
+        const blob = await base64Response.blob();
+        formData.append("image", blob)
+
+        axios({
+            method:"post",
+            url: "http://localhost:5000/imageToEmotion",
+            data: formData,
+            headers: { "Content-Type": "multipart/form-data" }
+        })
+        .then(function(response) {
+            //handle success  --> redirect to display result
+            console.log(response.data)
+        })
+        .catch(function(response) {
+            //handle failure 
+            console.log(response)
+        })
     }
 
     return (
