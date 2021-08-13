@@ -62,7 +62,7 @@ PYTHON_REQUIRES = ">= 3.6"
 
 INSTALL_REQUIRES = [
     "matplotlib",
-    "opencv-contrib-python",
+    "opencv-contrib-python-headless",
     "keras==2.4.3",
     "pandas",
     "requests",
