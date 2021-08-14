@@ -13,6 +13,6 @@ def getEmotion(file):
     else:
         return []
 
-def _getTopEmotion(result):
-    return sorted(list(result[0]['emotions'].items()),key=lambda x:x[1])[-1]
 
+def _getTopEmotion(result):
+    return sorted(list(result[0]["emotions"].items()), key=lambda x: x[1])[-1]
