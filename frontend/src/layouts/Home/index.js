@@ -26,6 +26,7 @@ const Home = () => {
                 },
             });
             setFunction(data);
+            console.log(data);
           } catch (error) {
             auth.logout(() => { console.log("Logged out") });
         }
