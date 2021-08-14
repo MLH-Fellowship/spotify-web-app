@@ -194,11 +194,13 @@ class SpotifyAPI(object):
         query_params = urlencode({"q": query, "type": search_type.lower()})
         return self.base_search(query_params)
 
-@app.route("/spotify")
+@app.route("/emotionToPlaylist", methods=["POST"])
 def getPlaylist():
     spotify = SpotifyAPI(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
     spotify.perform_auth()
-    return spotify.search({"sad":"lofi"}, search_type='playlist')
+    emotion = request.json['emotion']
+    # TODO: get genre from frontend and change for 'lofi'
+    return spotify.search({emotion:"lofi"}, search_type='playlist')
    
 
 
