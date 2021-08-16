@@ -74,10 +74,10 @@ const Home = () => {
             </Helmet>
             <Grid container justifyContent="center" >
               <Grid item xs={12}>
-                  <div class="slider">
-                      <div class="slide-track">
+                  <div className="slider">
+                      <div className="slide-track">
                       {playlists.items && playlists.items.map((item, key) => (
-                        <div class="slide">
+                        <div className="slide">
                             <img className='playlist-cover' key={key} src={item.images[0].url} alt='Artist Cover'/>
                         </div>
                       ))}
