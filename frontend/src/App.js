@@ -4,7 +4,6 @@ import {
 } from 'react-router-dom';
 
 import Welcome from './layouts/Welcome';
-import Login from './layouts/Login';
 import Home from './layouts/Home';
 import Helmet from 'react-helmet';
 import Capture from './layouts/Capture'
