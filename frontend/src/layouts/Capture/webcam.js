@@ -36,7 +36,7 @@ const WebcamCapture = (props) => {
             />
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary" onClick={capture}>Capture photo</Button>
+            <button className='button--capture' onClick={capture}>Capture photo</button>
           </Grid>
         </Grid>
     );
