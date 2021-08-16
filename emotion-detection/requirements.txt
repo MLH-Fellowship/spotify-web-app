@@ -1,5 +1,5 @@
 -e ./ferhosted
-opencv-python-headless
+opencv-python-headless==4.5.1.48
 Flask==2.0.1
 matplotlib
 gunicorn==20.1.0
