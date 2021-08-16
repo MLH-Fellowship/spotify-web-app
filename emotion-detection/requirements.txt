@@ -1,4 +1,4 @@
--e ./ferhosted
+fer==21.0.3
 Flask==2.0.1
 matplotlib
 gunicorn==20.1.0
