@@ -7,12 +7,43 @@ services:
     restart: always
     env_file:
       - ./frontend/.env
-    depends_on: 
+    depends_on:
       - back
+
+  nginx:
+    image: jonasal/nginx-certbot:latest
+    restart: unless-stopped
+    env_file:
+      - ./nginx-certbot.env
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - nginx_secrets:/etc/letsencrypt
+      - ./user_conf.d:/etc/nginx/user_conf.d
+    depends_on: 
+      - web
+
   back:
     build: ./backend
     ports:
-      - "5000:8080"
+      - "5000:5000"
     restart: always
     env_file:
       - ./backend/.env
+  
+  cadvisor:
+    container_name: cadvisor
+    image: gcr.io/cadvisor/cadvisor:latest
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    volumes: 
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+
+volumes:
+  nginx_secrets:
