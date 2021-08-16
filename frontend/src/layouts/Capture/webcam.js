@@ -27,6 +27,7 @@ const WebcamCapture = (props) => {
         <Grid container direction="column" justify-content="center">
         <Grid item>
             <Webcam
+                style={{height: '420px',boxShadow: '0px 0px 11px 0px #505050', borderRadius:'3%' }}
                 audio={false}
                 height={720}
                 ref={webcamRef}
