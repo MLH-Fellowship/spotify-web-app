@@ -57,7 +57,7 @@ const Home = () => {
             auth.login(()=>{
                 console.log('logged in');
             });
-            window.history.pushState({}, null, "/")
+            window.history.pushState({}, null, "/home")
         }
         getData(PLAYLISTS_ENDPOINT, setPlaylists);
         getData(TRACKS_ENDPOINT, setTracks);

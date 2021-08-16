@@ -22,9 +22,9 @@ function App() {
       </Helmet>
       <Router>
         <Switch>
-            <PublicRoute path="/" component={Welcome} />
+            <PublicRoute exact path="/" component={Welcome} />
             <PublicRoute exact path="/home" component={Home}/>
-            <PublicRoute path="/Capture" component={Capture} />
+            <PublicRoute path="/capture" component={Capture} />
             <PublicRoute path="/redirect" component={Redirection} />
           </Switch>
       </Router>
