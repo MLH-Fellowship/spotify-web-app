@@ -6,7 +6,6 @@ WORKDIR /moodify_backend
 
 RUN pip3 install -r requirements.txt
 RUN apt-get update -y
-RUN apt install -y libgl1-mesa-glx libglib2.0-0 libglu1-mesa
 
 COPY . /moodify_backend
 

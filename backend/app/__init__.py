@@ -4,7 +4,6 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from os import error
 from flask import Flask, request, jsonify, url_for, redirect
-from . emotionDetection import getEmotion 
 import tensorflow as tf
 
 import base64
@@ -62,25 +61,6 @@ def createSpotifyOAuth():
         redirect_uri=url_for('authorize', _external=True),
         scope='playlist-modify-public user-library-read user-library-modify user-read-email user-read-private',
     )
-    
-@app.route("/imageToEmotion", methods=['POST'])
-def imageToEmotion():
-    """
-    Returns an emotion based on an image
-
-    :param image: jpg file
-    :return: 200 [emotion, score]
-    :return: 500 if model fails to detect / interval server error
-    """
-    try:
-        image = request.files.get('image')
-        result = getEmotion(image)
-        if result:
-            return jsonify(result), 200
-        else:
-            return "No result available", 500
-    except Exception as e:
-            return str(e), 500
 
 """
 The following code is done with the help of this link:
