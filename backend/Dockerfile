@@ -6,8 +6,7 @@ WORKDIR /moodify_backend
 
 RUN pip3 install -r requirements.txt
 RUN apt-get update -y
-RUN apt install -y libgl1-mesa-glx libglib2.0-0 libglu1-mesa
 
 COPY . /moodify_backend
 
-CMD [ "gunicorn", "wsgi:app", "-w 4", "-b 0.0.0.0:5000"]
+CMD [ "gunicorn", "wsgi:app", "-w 1", "-b 0.0.0.0:5000"]
