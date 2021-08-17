@@ -4,7 +4,6 @@ import {
 } from 'react-router-dom';
 
 import Welcome from './layouts/Welcome';
-import Login from './layouts/Login';
 import Home from './layouts/Home';
 import Helmet from 'react-helmet';
 import Capture from './layouts/Capture'
@@ -23,9 +22,9 @@ function App() {
       </Helmet>
       <Router>
         <Switch>
-            <PublicRoute path="/login" component={Welcome} />
-            <PublicRoute exact path="/" component={Home}/>
-            <PublicRoute path="/Capture" component={Capture} />
+            <PublicRoute exact path="/" component={Welcome} />
+            <PublicRoute exact path="/home" component={Home}/>
+            <PublicRoute path="/capture" component={Capture} />
             <PublicRoute path="/redirect" component={Redirection} />
           </Switch>
       </Router>
