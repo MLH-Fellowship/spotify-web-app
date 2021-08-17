@@ -4,7 +4,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from flask_cors import CORS
 from flask import Flask, request, jsonify, url_for, redirect
 from .emotionDetection import getEmotion
-
+from flask_pymongo import PyMongo
 import base64
 import datetime
 from urllib.parse import urlencode
@@ -59,21 +59,24 @@ def authorize():
 
 @app.route("/get-songs")
 def getSongs():
-    _todos = db.songs.find()
+    try:
+        _todos = db.songs.find()
 
-    item = {}
-    data = []
-    for todo in _todos:
-        item = {
-            'id': str(todo['_id']),
-            'link': todo['link']
-        }
-        data.append(item)
-        
-    return jsonify(
-        status = True,
-        data = data
-    )
+        item = {}
+        data = []
+        for todo in _todos:
+            item = {
+                'id': str(todo['_id']),
+                'link': todo['link']
+            }
+            data.append(item)
+            
+        return jsonify(
+            status = True,
+            data = data
+        )
+    except Exception as e:
+        return str(e), 500
 
 def createSpotifyOAuth():
     """
