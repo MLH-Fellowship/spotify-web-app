@@ -46,7 +46,7 @@ function Capture(){
         setLoading(true);
         await axios({
             method:"post",
-            url: "http://localhost:5000/imageToEmotion",
+            url: "http://18.222.191.76:8080/imageToEmotion",
             data: formData,
             headers: { "Content-Type": "multipart/form-data" }
         })
