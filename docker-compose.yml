@@ -7,6 +7,8 @@ services:
     restart: always
     env_file:
       - ./frontend/.env
+    depends_on:
+      - back
 
   nginx:
     image: jonasal/nginx-certbot:latest
@@ -21,6 +23,14 @@ services:
       - ./user_conf.d:/etc/nginx/user_conf.d
     depends_on: 
       - web
+
+  back:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    restart: always
+    env_file:
+      - ./backend/.env
   
   cadvisor:
     container_name: cadvisor
