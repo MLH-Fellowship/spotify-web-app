@@ -4,7 +4,7 @@ RUN mkdir /emotion_model
 COPY requirements.txt /emotion_model
 WORKDIR /emotion_model
 
-RUN pip3 install -r --no-cache-dir requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 RUN apt-get update -y
 RUN apt install -y libgl1-mesa-glx libglib2.0-0 libglu1-mesa
 
