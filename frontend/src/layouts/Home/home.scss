@@ -69,6 +69,13 @@
     box-shadow: 7px 7px 5px #ccc;
     height: 150px;
 }
+.playlist-title {
+    font-size: 64px;
+    font-weight: bold;
+    font-family: 'Work Sans', sans-serif;
+    color: rgb(206, 206, 206);
+    margin: 0;
+}
 
 .animated-playlists{
     animation: moveSlideShow 15s linear infinite;

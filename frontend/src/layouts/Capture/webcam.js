@@ -18,8 +18,6 @@ const WebcamCapture = (props) => {
     const capture  = React.useCallback(
         () => {
             const imageSrc = webcamRef.current.getScreenshot();
-            console.log('image taken')
-            console.log(imageSrc)
             props.setCapturedImage(imageSrc)
         },
         [webcamRef]
@@ -29,6 +27,7 @@ const WebcamCapture = (props) => {
         <Grid container direction="column" justify-content="center">
         <Grid item>
             <Webcam
+                style={{height: '420px',boxShadow: '0px 0px 11px 0px #505050', borderRadius:'3%' }}
                 audio={false}
                 height={720}
                 ref={webcamRef}
@@ -38,7 +37,7 @@ const WebcamCapture = (props) => {
             />
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary" onClick={capture}>Capture photo</Button>
+            <button className='button--capture' onClick={capture}>Capture photo</button>
           </Grid>
         </Grid>
     );

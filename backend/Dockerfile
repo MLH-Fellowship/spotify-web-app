@@ -9,4 +9,4 @@ RUN apt-get update -y
 
 COPY . /moodify_backend
 
-CMD [ "gunicorn", "wsgi:app", "-w 4", "-b 0.0.0.0:8080"]
+CMD [ "gunicorn", "wsgi:app", "-w 4", "-b 0.0.0.0:5000"]
