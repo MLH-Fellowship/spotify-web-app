@@ -1,12 +1,29 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import Typist from 'react-typist'
+import { Grid } from '@material-ui/core';
+
+
+import './loading.scss';
 
 function Loading(props) {
     const [capturedImage, setCapturedImage] = useState(null)
     const [playlistData, setPlaylistData] = useState({});
     const [emotion, setEmotion] = useState('');
     const [error, setError] = useState(false);
+    const [typing, setTyping] = useState(true)
+
+    const loadingText = [
+        "...",
+        "Let me try to figure out what you are feeling..",
+        "hmmmm",
+        "Meeska, Mooska, Micky Mouse!",
+        "Ah that makes sense..",
+        "...",
+        "...",
+        "Let me get you some songs"
+    ]
 
 
     const getData = async (endpoint, setFunction) => {
@@ -64,11 +81,17 @@ function Loading(props) {
         
     })
 
+    const onTypingDone = () => {
+        setTyping(false)
+    }
+
     return (
         <>
-        <p>HI!</p>
+        <Typist avgTypingDelay={80} onTypingDone={onTypingDone}>
+            {loadingText.map((value) => <p className="typing">{value}</p>)}
+        </Typist>
         {
-            playlistData.tracks && <Redirect 
+            !typing && playlistData.tracks && <Redirect 
             to={{
                 pathname: "/result" ,
                 state: {emotion: emotion,

@@ -24,7 +24,7 @@ function Result(props){
             </Grid>
             <Grid container direction="column" justifyContent="center">
                 <Grid item xs={12}>
-                    <h1 className='greetings'>You look {emotion}</h1>
+                    <h1 className='greetings'>You are looking {emotion}</h1>
                     <h2 style={{ marginLeft: '84px' }} className='title-3'>Take a look at this recommendation based on you favourite genres 🎸</h2>
                 </Grid>
             </Grid>
