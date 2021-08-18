@@ -11,7 +11,7 @@ import requests
 
 app = Flask(__name__)
 CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+app.config["CORS_HEADERS"] = "Content-Type"
 
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
@@ -71,6 +71,8 @@ def createSpotifyOAuth():
 The following code is done with the help of this link:
 https://www.youtube.com/watch?v=xdq6Gz33khQ
 """
+
+
 class SpotifyAPI(object):
     """
     Spotify class to access the API methods
