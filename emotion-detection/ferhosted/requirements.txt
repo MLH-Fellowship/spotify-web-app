@@ -1,7 +1,7 @@
+-e ../mtcnnhosted
 matplotlib
 tensorflow-cpu
 opencv-contrib-python-headless
 pandas
 Pillow
 requests
-mtcnn>=0.1.1
