@@ -179,7 +179,7 @@ def getPlaylist():
     spotify.perform_auth()
     emotion = request.json["emotion"]
     # TODO: get genre from frontend and change for 'lofi'
-    return spotify.search({emotion: "lofi"}, search_type="playlist")
+    return spotify.search({emotion: "rock"}, search_type="playlist")
 
 
 if __name__ == "__main__":
