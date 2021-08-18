@@ -59,7 +59,7 @@ function Capture(){
                 setEmotion(response.data[0]);
                 await axios({
                     method:"post",
-                    url: "http://localhost:5000/emotionToPlaylist",
+                    url: "https://spotime.duckdns.org/api/emotionToPlaylist",
                     data: {
                         emotion: response.data[0]
                     },
