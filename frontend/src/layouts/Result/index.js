@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import SongList from '../../components/SongList'
 import PlaylistTop from '../../components/PlaylistTop'
-import LinearProgress from '@material-ui/core/LinearProgress';
 import { Grid } from '@material-ui/core';
 
 function Result(props){

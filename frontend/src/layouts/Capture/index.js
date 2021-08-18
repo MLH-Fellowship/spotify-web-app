@@ -1,10 +1,6 @@
 import React, {useState} from 'react'
 import { Helmet } from 'react-helmet';
 import WebcamCapture from './webcam'
-import { Grid } from '@material-ui/core';
-import SongList from '../../components/SongList'
-import PlaylistTop from '../../components/PlaylistTop'
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 import './capture.scss'
 import { Redirect } from 'react-router';

@@ -69,14 +69,13 @@ function Loading(props) {
             }).catch(function(response) {
                 //handle failure 
                 setError(true);
-                console.log('Playlist Generation Failed')
             })
         
         })
         .catch(function(response) {
             //handle failure 
             setError(true);
-            console.log('Emotion Detection Failed')
+
         })
         
     })
