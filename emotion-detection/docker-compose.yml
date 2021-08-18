@@ -6,3 +6,19 @@ services:
             - 5001:5001
         restart: always
     
+    nginx:
+        image: jonasal/nginx-certbot:latest
+        restart: unless-stopped
+        env_file:
+            - ./nginx-certbot.env
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - nginx_secrets:/etc/letsencrypt
+            - ./user_conf.d:/etc/nginx/user_conf.d
+        depends_on: 
+            - emotion_model
+            
+volumes:
+    nginx_secrets:
