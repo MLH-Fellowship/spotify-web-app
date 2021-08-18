@@ -1,0 +1,8 @@
+version: "1"
+services:
+    emotion_model:
+        build: .
+        ports: 
+            - 5001:5001
+        restart: always
+    
