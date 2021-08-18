@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from . emotionDetection import getEmotion 
 
 app = Flask(__name__)
@@ -15,6 +15,7 @@ def home():
     return "Works", 200
 
 @app.route("/imageToEmotion", methods=['POST'])
+@cross_origin()
 def imageToEmotion():
     """
     Returns an emotion based on an image
