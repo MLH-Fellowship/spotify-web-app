@@ -1,7 +1,6 @@
 -e ../mtcnnhosted
 matplotlib
 tensorflow-cpu
-opencv-contrib-python-headless
 pandas
 Pillow
 requests
