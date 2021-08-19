@@ -59,7 +59,8 @@ function Loading(props) {
                 method:"post",
                 url: `${process.env.REACT_APP_BACK_URL}/emotionToPlaylist`,
                 data: {
-                    emotion: response.data[0]
+                    emotion: response.data[0],
+                    token: localStorage.getItem('token')
                 },
                 headers: { "Content-Type": "application/json" }
             }).then(function(response) {
