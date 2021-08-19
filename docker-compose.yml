@@ -31,7 +31,17 @@ services:
     restart: always
     env_file:
       - ./backend/.env
+    depends_on:
+      - mongodb
   
+  mongodb:
+    image: mongo:5.0.2
+    restart: unless-stopped
+    env_file:
+      - ./backend/mongodb.env
+    ports:
+      - 27017:27017
+
   cadvisor:
     container_name: cadvisor
     image: gcr.io/cadvisor/cadvisor:latest
