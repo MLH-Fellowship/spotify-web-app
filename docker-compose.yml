@@ -55,7 +55,18 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - cadvisor
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    ports:
+      - 6000:6000
+    volumes: 
+      - grafana_storage:/var/lib/grafana
+    depends_on: 
+      - prometheus
 
 
 volumes:
   nginx_secrets:
+  grafana_storage:
