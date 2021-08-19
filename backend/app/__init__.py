@@ -3,7 +3,6 @@ from flask.helpers import url_for
 from spotipy.oauth2 import SpotifyOAuth
 from flask_cors import CORS
 from flask import Flask, request, jsonify, url_for, redirect
-from .emotionDetection import getEmotion
 
 import base64
 import datetime
@@ -12,6 +11,7 @@ import requests
 
 app = Flask(__name__)
 CORS(app)
+app.config["CORS_HEADERS"] = "Content-Type"
 
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
@@ -65,26 +65,6 @@ def createSpotifyOAuth():
         redirect_uri=url_for("authorize", _external=True),
         scope="playlist-modify-public user-library-read user-library-modify user-read-email user-read-private",
     )
-
-
-@app.route("/imageToEmotion", methods=["POST"])
-def imageToEmotion():
-    """
-    Returns an emotion based on an image
-
-    :param image: jpg file
-    :return: 200 [emotion, score]
-    :return: 500 if model fails to detect / interval server error
-    """
-    try:
-        image = request.files.get("image")
-        result = getEmotion(image)
-        if result:
-            return jsonify(result), 200
-        else:
-            return "No result available", 500
-    except Exception as e:
-        return str(e), 500
 
 
 """
