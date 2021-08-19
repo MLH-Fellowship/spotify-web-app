@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import { Helmet } from 'react-helmet';
-import WebcamCapture from './webcam'
-
+import WebcamCapture from './webcam';
+import { Grid } from '@material-ui/core';
+ 
 import './capture.scss'
 import { Redirect } from 'react-router';
 
