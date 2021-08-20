@@ -1,5 +1,5 @@
-# SpotiME 🎧 - MLH Fellowship Pod 3.3.0 Team 1 
-SpotiME is a react web app that uses spotify API and Machine Learning Emotion detection to recommend music to the users based on their emotion.
+# SpotiMe 🎧 - MLH Fellowship Pod 3.3.0 Team 1 
+SpotiMe is a react web app that uses the Spotify API and Machine Learning Emotion detection to recommend music based on emotions and music taste.
 Once the user logs in with their spotify account, the website shows the summary of the user's music breakdown. 
 The user can click the button "Play" to initiate a camera to capture the user's face (through front camera/webcam) which is analyzed by our ML model to detect the user's emotion. Based on the emotion detected, the user will receive a customized playlist by SpotiME!
 
@@ -22,14 +22,14 @@ __To build the website, we used:__
  - ML Emotion Detection Library [FER](https://pypi.org/project/fer/)
 
 __We deployed our website using:__
-   - Heroku
    - AWS EC2
-   - DUCK dns
+   - Duck DNS
    - Nginx
    - cAdvisor
 
-__We tested it with:__
+__We tested and monitored it with:__
    - Github Actions
+   - 
 
 __We set up our database using:__
    - mongoDB
