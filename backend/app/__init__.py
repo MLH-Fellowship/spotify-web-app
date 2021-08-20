@@ -187,11 +187,18 @@ def getPlaylist():
     spotify.perform_auth()
     emotion = request.json["emotion"]
     access_token = request.json["token"]
-    auth_headers = {'Authorization' : f'Bearer {access_token}', 'Accept': 'application/json', 'Content-Type': 'application/json'}
-    response = requests.get('https://api.spotify.com/v1/me/top/artists?time_range=long_term', headers=auth_headers)
-    artists = response.json()['items']
+    auth_headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+    }
+    response = requests.get(
+        "https://api.spotify.com/v1/me/top/artists?time_range=long_term",
+        headers=auth_headers,
+    )
+    artists = response.json()["items"]
     random_artist = random.choice(artists)
-    genres = random_artist['genres']
+    genres = random_artist["genres"]
     random_genre = random.choice(genres)
     return json.dumps(spotify.search({emotion: random_genre}, search_type="playlist"))
 
