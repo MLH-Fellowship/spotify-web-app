@@ -8,6 +8,8 @@ import base64
 import datetime
 from urllib.parse import urlencode
 import requests
+import json
+import random
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = 'mongodb://' + os.environ['MONGODB_USERNAME'] + ':' + os.environ['MONGODB_PASSWORD'] + '@' + os.environ['MONGODB_HOSTNAME'] + ':27017/' + os.environ['MONGODB_DATABASE'] + '?authSource=admin'
@@ -202,11 +204,27 @@ class SpotifyAPI(object):
 
 @app.route("/emotionToPlaylist", methods=["POST"])
 def getPlaylist():
+    """
+    Returns a playlist based on the emotion and top genres of the user
+    """
     spotify = SpotifyAPI(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
     spotify.perform_auth()
     emotion = request.json["emotion"]
-    # TODO: get genre from frontend and change for 'lofi'
-    return spotify.search({emotion: "lofi"}, search_type="playlist")
+    access_token = request.json["token"]
+    auth_headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+    }
+    response = requests.get(
+        "https://api.spotify.com/v1/me/top/artists?time_range=long_term",
+        headers=auth_headers,
+    )
+    artists = response.json()["items"]
+    random_artist = random.choice(artists)
+    genres = random_artist["genres"]
+    random_genre = random.choice(genres)
+    return json.dumps(spotify.search({emotion: random_genre}, search_type="playlist"))
 
 
 if __name__ == "__main__":

@@ -48,7 +48,7 @@ function Loading(props) {
         formData.append("image", blob)
         await axios({
             method:"post",
-            url: "http://localhost:5000/imageToEmotion",
+            url: `${process.env.REACT_APP_ML_URL}/imageToEmotion`,
             data: formData,
             headers: { "Content-Type": "multipart/form-data" }
         })
@@ -57,9 +57,10 @@ function Loading(props) {
             setEmotion(response.data[0]);
             await axios({
                 method:"post",
-                url: "http://localhost:5000/emotionToPlaylist",
+                url: `${process.env.REACT_APP_BACK_URL}/emotionToPlaylist`,
                 data: {
-                    emotion: response.data[0]
+                    emotion: response.data[0],
+                    token: localStorage.getItem('token')
                 },
                 headers: { "Content-Type": "application/json" }
             }).then(function(response) {
