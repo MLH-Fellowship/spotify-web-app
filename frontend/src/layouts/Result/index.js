@@ -33,7 +33,7 @@ function Result(props){
                     <>
                         <Grid container style={{ height: 150, background: 'linear-gradient(0deg, rgba(25,20,20,1) 12%, rgba(25,20,20,0.6937149859943977) 46%, rgba(25,20,20,0.4192051820728291) 71%, rgba(25,20,20,0.27914915966386555) 80%, rgba(255,255,255,0) 95%)' }}></Grid>
                         <PlaylistTop playlist={playlistData}/>
-                        <SongList songs={playlistData.tracks.items.slice(0,20)}/>
+                        <SongList playlist={playlistData} songs={playlistData.tracks.items.slice(0,20)}/>
                     </>}
                 </Grid>
             </Grid>
