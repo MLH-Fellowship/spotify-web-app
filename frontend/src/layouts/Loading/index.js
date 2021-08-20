@@ -39,9 +39,7 @@ function Loading(props) {
         }
     };
 
-    useEffect(async() => {
-        setCapturedImage(props.location.state.capturedImage)
-
+    const fetchResult = async () => {
         var formData = new FormData()
         const base64Response = await fetch(props.location.state.capturedImage);
         const blob = await base64Response.blob();
@@ -78,8 +76,12 @@ function Loading(props) {
             setError(true);
 
         })
-        
-    })
+    }
+
+    useEffect(() => {
+        setCapturedImage(props.location.state.capturedImage)
+        fetchResult();       
+    }, [])
 
     const onTypingDone = () => {
         setTyping(false)
