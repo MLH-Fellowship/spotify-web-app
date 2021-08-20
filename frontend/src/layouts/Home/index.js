@@ -76,16 +76,23 @@ const Home = () => {
               <Grid item xs={12}>
                   <div className="slider">
                       <div className="slide-track">
-                      {playlists.items && playlists.items.map((item, key) => (
-                        <div className="slide">
-                            <img className='playlist-cover' key={key} src={item.images[0].url} alt='Artist Cover'/>
-                        </div>
-                      ))}
+                      {playlists.items && playlists.items.map((item, key) => {
+                        if(item.images && item.images[0] && item.images[0].url ){
+                          return(
+                            <div className="slide">
+                              <img className='playlist-cover' key={key} src={item.images[0].url} alt='Artist Cover'/>
+                            </div>
+                            )
+                        } else{
+                          return null
+                        }
+
+                      })}
                       </div>
                   </div>
               </Grid>
               <Grid item xs={3} style={{marginTop: "80px"}}>
-                { profile.images && 
+                { profile.images && profile.images[0] && profile.images[0].url &&
                   <img style={{borderRadius:'50%', boxShadow: '0px 0px 48px 0px #505050'}} src={profile.images[0].url} alt="profile" /> 
                 }
               </Grid>
