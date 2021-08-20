@@ -46,9 +46,9 @@ const Home = () => {
       };
 
     const getTokens = async (code) => {
-      await axios.post('http://localhost:5000/getCredentials', { 
+      await axios.post(process.env.REACT_APP_BACK_URL + '/getCredentials', { 
         code: code,
-        redirect_uri: 'http://localhost:3000/home',
+        redirect_uri: process.env.REACT_APP_REDIRECT_URL,
         client_id: process.env.REACT_APP_CLIENT_ID,
         client_secret: process.env.REACT_APP_CLIENT_SECRET,
 
