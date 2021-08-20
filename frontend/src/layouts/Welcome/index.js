@@ -67,7 +67,7 @@ function Welcome() {
                     <p>SpotiMe / Moodify</p>
                 </Grid>
                 <Grid item xs={6} style={{ padding: '1% 3%', textAlign: 'right'}}>
-                    <p>Made by @athenaleong @S4ND1X @saulmontesdeoca @ccejudo</p>
+                    <p>Made by @S4ND1X @saulmontesdeoca @ccejudo @athenaleong @jioh-kim</p>
                 </Grid>
             </Grid>
         </Grid>
