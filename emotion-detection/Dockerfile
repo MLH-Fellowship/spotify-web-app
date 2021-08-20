@@ -10,4 +10,4 @@ RUN apt install -y libgl1-mesa-glx libglib2.0-0 libglu1-mesa
 
 COPY . /emotion_model
 
-CMD [ "gunicorn", "wsgi:app", "-w 1", "-b 0.0.0.0:5001"]
+CMD [ "gunicorn", "wsgi:app", "-w 2", "-b 0.0.0.0:5001"]

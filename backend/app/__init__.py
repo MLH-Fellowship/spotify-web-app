@@ -3,7 +3,7 @@ from flask.helpers import url_for
 from spotipy.oauth2 import SpotifyOAuth
 from flask_cors import CORS
 from flask import Flask, request, jsonify, url_for, redirect
-
+from flask_pymongo import PyMongo
 import base64
 from base64 import b64encode
 import datetime
@@ -13,6 +13,19 @@ import json
 import random
 import six
 app = Flask(__name__)
+app.config["MONGO_URI"] = (
+    "mongodb://"
+    + os.environ["MONGODB_USERNAME"]
+    + ":"
+    + os.environ["MONGODB_PASSWORD"]
+    + "@"
+    + os.environ["MONGODB_HOSTNAME"]
+    + ":27017/"
+    + os.environ["MONGODB_DATABASE"]
+    + "?authSource=admin"
+)
+mongo = PyMongo(app)
+db = mongo.db
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 
@@ -54,6 +67,22 @@ def login():
 @app.route("/authorize")
 def authorize():
     return "authorize"
+
+
+@app.route("/get-songs")
+def getSongs():
+    try:
+        _todos = db.songs.find()
+
+        item = {}
+        data = []
+        for todo in _todos:
+            item = {"id": str(todo["_id"]), "link": todo["link"]}
+            data.append(item)
+
+        return jsonify(status=True, data=data)
+    except Exception as e:
+        return str(e), 500
 
 
 def createSpotifyOAuth():

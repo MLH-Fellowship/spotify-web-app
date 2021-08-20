@@ -3,7 +3,7 @@ services:
   web:
     build: ./frontend
     ports:
-      - "3000:3000"
+      - "6000:6000"
     restart: always
     env_file:
       - ./frontend/.env
@@ -29,9 +29,22 @@ services:
     ports:
       - "5000:5000"
     restart: always
+    links:
+      - mongodb:db
     env_file:
       - ./backend/.env
   
+  mongodb:
+    image: mongo:4.0.8
+    restart: unless-stopped
+    command: mongod --auth
+    env_file:
+      - ./backend/mongodb.env
+    ports:
+      - 27017:27017
+    volumes:
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+
   cadvisor:
     container_name: cadvisor
     image: gcr.io/cadvisor/cadvisor:latest
@@ -60,7 +73,7 @@ services:
     image: grafana/grafana:latest
     restart: unless-stopped
     ports:
-      - 6000:6000
+      - 3000:3000
     volumes: 
       - grafana_storage:/var/lib/grafana
     depends_on: 
