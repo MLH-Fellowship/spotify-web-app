@@ -158,7 +158,7 @@ export default function CheckboxListSecondary(props) {
           noDevice &&
             <div style={{width: '100%'}}>
                 <Alert severity="info" onClose={() => setNoDevice(false)}>
-                    Device not found. Please open Spotify in any device before playing the playlist.
+                    Device not found. Please open Spotify in any device before playing any track.
                 </Alert>
             </div>
       }
