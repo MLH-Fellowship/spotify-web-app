@@ -5,12 +5,13 @@ from flask_cors import CORS
 from flask import Flask, request, jsonify, url_for, redirect
 
 import base64
+from base64 import b64encode
 import datetime
 from urllib.parse import urlencode
 import requests
 import json
 import random
-
+import six
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
@@ -200,8 +201,43 @@ def getPlaylist():
     random_artist = random.choice(artists)
     genres = random_artist["genres"]
     random_genre = random.choice(genres)
+
     return json.dumps(spotify.search({emotion: random_genre}, search_type="playlist"))
 
+@app.route("/getCredentials", methods=["POST"])
+def getCredentials():
+    """
+    Returns access token, refresh token and expires in seconds
+    """
+    url = 'https://accounts.spotify.com/api/token'
+    client_id = request.json['client_id']
+    client_secret = request.json['client_secret']
+    code = request.json['code']
+    redirect_uri = request.json['redirect_uri']
+    scopes = [
+        "user-top-read",
+        "user-read-email",
+        "user-read-private",
+        "user-library-read",
+        "user-library-modify",
+        "user-read-currently-playing",
+        "user-read-playback-state",
+        "playlist-read-private",
+        "playlist-modify-public",
+        "playlist-modify-private",
+        "user-modify-playback-state"
+    ]
+    auth_header = b64encode(six.text_type(client_id + ':' + client_secret).encode('ascii'))
+    headers = {'Authorization':'Basic %s' % auth_header.decode('ascii')}
+    data = {
+        'redirect_uri': redirect_uri,
+        'code': code,
+        'grant_type': 'authorization_code',
+        'scopes': scopes
+    }
+    r = requests.post(url, data=data, headers=headers, verify=True)
+    token_info = r.json()
+    return json.dumps(token_info)
 
 if __name__ == "__main__":
     app.run()
