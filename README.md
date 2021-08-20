@@ -61,6 +61,9 @@ __We tested and monitored it with:__
 __We set up our database using:__
    - mongoDB
 
+__Cool repo visualization jus for fun:__
+- [![](https://gource.io/images/gource-papervision.jpg)](https://www.youtube.com/watch?v=zhLm2W29cbc)
+
 ## Challenges we ran into 😡
 - Our ML module was hard to deploy. We failed to deploy it on Haroku and ended up migrating it on AWS.
 - Another issue we kept facing an Nginx and CORS error.
