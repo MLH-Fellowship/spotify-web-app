@@ -12,7 +12,17 @@ import json
 import random
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = 'mongodb://' + os.environ['MONGODB_USERNAME'] + ':' + os.environ['MONGODB_PASSWORD'] + '@' + os.environ['MONGODB_HOSTNAME'] + ':27017/' + os.environ['MONGODB_DATABASE'] + '?authSource=admin'
+app.config["MONGO_URI"] = (
+    "mongodb://"
+    + os.environ["MONGODB_USERNAME"]
+    + ":"
+    + os.environ["MONGODB_PASSWORD"]
+    + "@"
+    + os.environ["MONGODB_HOSTNAME"]
+    + ":27017/"
+    + os.environ["MONGODB_DATABASE"]
+    + "?authSource=admin"
+)
 mongo = PyMongo(app)
 db = mongo.db
 CORS(app)
@@ -66,18 +76,13 @@ def getSongs():
         item = {}
         data = []
         for todo in _todos:
-            item = {
-                'id': str(todo['_id']),
-                'link': todo['link']
-            }
+            item = {"id": str(todo["_id"]), "link": todo["link"]}
             data.append(item)
-            
-        return jsonify(
-            status = True,
-            data = data
-        )
+
+        return jsonify(status=True, data=data)
     except Exception as e:
         return str(e), 500
+
 
 def createSpotifyOAuth():
     """
