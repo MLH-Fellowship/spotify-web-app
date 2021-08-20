@@ -3,15 +3,32 @@ from flask.helpers import url_for
 from spotipy.oauth2 import SpotifyOAuth
 from flask_cors import CORS
 from flask import Flask, request, jsonify, url_for, redirect
-from .emotionDetection import getEmotion
-
+from flask_pymongo import PyMongo
 import base64
+from base64 import b64encode
 import datetime
 from urllib.parse import urlencode
 import requests
+import json
+import random
+import six
 
 app = Flask(__name__)
+app.config["MONGO_URI"] = (
+    "mongodb://"
+    + os.environ["MONGODB_USERNAME"]
+    + ":"
+    + os.environ["MONGODB_PASSWORD"]
+    + "@"
+    + os.environ["MONGODB_HOSTNAME"]
+    + ":27017/"
+    + os.environ["MONGODB_DATABASE"]
+    + "?authSource=admin"
+)
+mongo = PyMongo(app)
+db = mongo.db
 CORS(app)
+app.config["CORS_HEADERS"] = "Content-Type"
 
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
@@ -53,6 +70,22 @@ def authorize():
     return "authorize"
 
 
+@app.route("/get-songs")
+def getSongs():
+    try:
+        _todos = db.songs.find()
+
+        item = {}
+        data = []
+        for todo in _todos:
+            item = {"id": str(todo["_id"]), "link": todo["link"]}
+            data.append(item)
+
+        return jsonify(status=True, data=data)
+    except Exception as e:
+        return str(e), 500
+
+
 def createSpotifyOAuth():
     """
     Returns an Spotify Authorization Token
@@ -65,26 +98,6 @@ def createSpotifyOAuth():
         redirect_uri=url_for("authorize", _external=True),
         scope="playlist-modify-public user-library-read user-library-modify user-read-email user-read-private",
     )
-
-
-@app.route("/imageToEmotion", methods=["POST"])
-def imageToEmotion():
-    """
-    Returns an emotion based on an image
-
-    :param image: jpg file
-    :return: 200 [emotion, score]
-    :return: 500 if model fails to detect / interval server error
-    """
-    try:
-        image = request.files.get("image")
-        result = getEmotion(image)
-        if result:
-            return jsonify(result), 200
-        else:
-            return "No result available", 500
-    except Exception as e:
-        return str(e), 500
 
 
 """
@@ -198,11 +211,66 @@ class SpotifyAPI(object):
 
 @app.route("/emotionToPlaylist", methods=["POST"])
 def getPlaylist():
+    """
+    Returns a playlist based on the emotion and top genres of the user
+    """
     spotify = SpotifyAPI(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
     spotify.perform_auth()
     emotion = request.json["emotion"]
-    # TODO: get genre from frontend and change for 'lofi'
-    return spotify.search({emotion: "lofi"}, search_type="playlist")
+    access_token = request.json["token"]
+    auth_headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+    }
+    response = requests.get(
+        "https://api.spotify.com/v1/me/top/artists?time_range=long_term",
+        headers=auth_headers,
+    )
+    artists = response.json()["items"]
+    random_artist = random.choice(artists)
+    genres = random_artist["genres"]
+    random_genre = random.choice(genres)
+
+    return json.dumps(spotify.search({emotion: random_genre}, search_type="playlist"))
+
+
+@app.route("/getCredentials", methods=["POST"])
+def getCredentials():
+    """
+    Returns access token, refresh token and expires in seconds
+    """
+    url = "https://accounts.spotify.com/api/token"
+    client_id = request.json["client_id"]
+    client_secret = request.json["client_secret"]
+    code = request.json["code"]
+    redirect_uri = request.json["redirect_uri"]
+    scopes = [
+        "user-top-read",
+        "user-read-email",
+        "user-read-private",
+        "user-library-read",
+        "user-library-modify",
+        "user-read-currently-playing",
+        "user-read-playback-state",
+        "playlist-read-private",
+        "playlist-modify-public",
+        "playlist-modify-private",
+        "user-modify-playback-state",
+    ]
+    auth_header = b64encode(
+        six.text_type(client_id + ":" + client_secret).encode("ascii")
+    )
+    headers = {"Authorization": "Basic %s" % auth_header.decode("ascii")}
+    data = {
+        "redirect_uri": redirect_uri,
+        "code": code,
+        "grant_type": "authorization_code",
+        "scopes": scopes,
+    }
+    r = requests.post(url, data=data, headers=headers, verify=True)
+    token_info = r.json()
+    return json.dumps(token_info)
 
 
 if __name__ == "__main__":

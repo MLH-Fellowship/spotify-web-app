@@ -4,10 +4,11 @@ import {
 } from 'react-router-dom';
 
 import Welcome from './layouts/Welcome';
-import Login from './layouts/Login';
 import Home from './layouts/Home';
 import Helmet from 'react-helmet';
-import Capture from './layouts/Capture'
+import Capture from './layouts/Capture';
+import Result from './layouts/Result';
+import Loading from './layouts/Loading';
 import Redirection from './routing/Redirection';
 
 import PrivateRoute from './routing/PrivateRoute';
@@ -23,10 +24,12 @@ function App() {
       </Helmet>
       <Router>
         <Switch>
-            <PublicRoute path="/login" component={Welcome} />
-            <PublicRoute exact path="/" component={Home}/>
-            <PublicRoute path="/Capture" component={Capture} />
+            <PublicRoute exact path="/" component={Welcome} />
+            <PublicRoute exact path="/home" component={Home}/>
+            <PublicRoute path="/capture" component={Capture} />
             <PublicRoute path="/redirect" component={Redirection} />
+            <PublicRoute path="/loading" component={Loading} />
+            <PublicRoute path="/result" component={Result}/>
           </Switch>
       </Router>
     </div>

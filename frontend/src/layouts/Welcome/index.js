@@ -1,25 +1,41 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
+import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import { Fade } from 'react-reveal';
-import { CLIENT_ID, CLIENT_SECRET, SPOTIFY_AUTHORIZE_ENDPOINT, REDIRECT_URL_AFTER_LOGIN, SCOPES_URL_PARAM } from '../../auth/Spotify'
+import { CLIENT_ID, CLIENT_SECRET, SPOTIFY_AUTHORIZE_ENDPOINT, REDIRECT_URL_AFTER_LOGIN, SCOPES_URL_PARAM } from '../../auth/Spotify';
 import _ from 'lodash';
 
 import './welcome.scss';
 
 function Welcome() {
+    const [sliderImages, setSliderImages] = useState([]);
+
+    useEffect( () => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/get-songs')
+            .then( response => {
+                let temp = []
+                response.data.data.forEach( song => {
+                    temp.push(song.link)
+                });
+                setSliderImages(temp)
+            })
+            .catch( e => {
+                console.error(e);
+            })
+    }, [])
 
     const handleLogin = () => {
-        window.location = `${SPOTIFY_AUTHORIZE_ENDPOINT}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&redirect_uri=${REDIRECT_URL_AFTER_LOGIN}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;
+        window.location = `${SPOTIFY_AUTHORIZE_ENDPOINT}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&redirect_uri=${REDIRECT_URL_AFTER_LOGIN}&scope=${SCOPES_URL_PARAM}&response_type=code`;
     };
 
     const getRandomImages = ( num ) => {
         let images = [];
 
-        _.times( num, ( i ) => {
+        _.times( Math.min(num, sliderImages.length), ( i ) => {
             images.push(
 		        <div class="slide">
-                    <img className='playlist-cover' key={`${i}-image`} src={`https://picsum.photos/seed/${i+1}/200`} alt='Playlist Cover'/>
+                    <img className='playlist-cover' key={`${i}-image`} src={ sliderImages[i] } alt='Playlist Cover'/>
                 </div>
             )
         })
@@ -67,7 +83,7 @@ function Welcome() {
                     <p>SpotiMe / Moodify</p>
                 </Grid>
                 <Grid item xs={6} style={{ padding: '1% 3%', textAlign: 'right'}}>
-                    <p>Made by @athenaleong @S4ND1X @saulmontesdeoca @ccejudo</p>
+                    <p>Made by @S4ND1X @saulmontesdeoca @ccejudo @athenaleong @jioh-kim</p>
                 </Grid>
             </Grid>
         </Grid>

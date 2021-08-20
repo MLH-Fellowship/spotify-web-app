@@ -13,6 +13,7 @@ htmlcov/
 *.egg-info
 
 virtualenv
+venv
 
 # dependencies
 */node_modules
@@ -37,3 +38,4 @@ yarn-error.log*
 
 # environment
 .env
+mongodb.env
