@@ -73,7 +73,7 @@ function Capture(){
                     <Grid item xs={12}>
                         <h1>Sorry at this moment we couldn't find your emotion, try again if you'd like!</h1>
                     </Grid>
-                </Grid> : <p>hi</p>
+                </Grid> : null
 
             }
             
