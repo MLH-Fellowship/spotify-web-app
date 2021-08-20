@@ -39,7 +39,7 @@ const PlaylistTop = (props) => {
                     await fetch(playURL, options)
                         .then(response => response.json())
                         .then(data => {})
-                        .catch(error => setNoDevice(true));
+                        .catch(error => console.log(error));
                 }
                 else{
                     setNoDevice(true);
