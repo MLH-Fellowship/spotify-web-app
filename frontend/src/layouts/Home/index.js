@@ -11,6 +11,7 @@ const Home = () => {
     const [artists, setArtists] = useState({});
     const [tracks, setTracks] = useState({});
     const [profile, setProfile] = useState({});
+    const [accessToken, setAccessToken] = useState('');
 
     const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
     const TRACKS_ENDPOINT = "https://api.spotify.com/v1/me/top/tracks?time_range=long_term";
@@ -44,19 +45,38 @@ const Home = () => {
         return paramsSplitUp;
       };
 
-    useEffect(() => {
+    const getTokens = async (code) => {
+      await axios.post('http://localhost:5000/getCredentials', { 
+        code: code,
+        redirect_uri: 'http://localhost:3000/home',
+        client_id: process.env.REACT_APP_CLIENT_ID,
+        client_secret: process.env.REACT_APP_CLIENT_SECRET,
 
+      })
+        .then(res => {
+          const { access_token, refresh_token } = res.data;
+          setAccessToken(access_token);
+          localStorage.clear();
+          localStorage.setItem('token', access_token);
+          localStorage.setItem('refresh_token', refresh_token);
+          // set getData 2 times bc of race condition
+          getData(PLAYLISTS_ENDPOINT, setPlaylists);
+          getData(TRACKS_ENDPOINT, setTracks);
+          getData(ARTISTS_ENDPOINT, setArtists);
+          getData(PROFILE_ENDPOINT, setProfile);
+        })
+    }
+
+    useEffect(() => {
+        setAccessToken(localStorage.getItem('token'));
+        }, [accessToken]);
+
+    useEffect(() => {
         //if there are params in url, get the token from there
-        if (window.location.hash) {
-            const { access_token, expires_in, token_type } = getReturnedParamsFromSpotifyAuth(window.location.hash);
-            
-            localStorage.clear();
-            localStorage.setItem("token", access_token);
-            localStorage.setItem("tokenType", token_type); // "Bearer" is the one will be getting and using
-            localStorage.setItem("expiresIn", expires_in); // 3600 seconds
-            auth.login(()=>{
-                console.log('logged in');
-            });
+        if (window.location.href.includes('code')) {
+            const url = new URL(window.location.href);
+            const code = url.searchParams.get("code");
+            getTokens(code);
             window.history.pushState({}, null, "/home")
         }
         getData(PLAYLISTS_ENDPOINT, setPlaylists);
@@ -76,16 +96,23 @@ const Home = () => {
               <Grid item xs={12}>
                   <div className="slider">
                       <div className="slide-track">
-                      {playlists.items && playlists.items.map((item, key) => (
-                        <div className="slide">
-                            <img className='playlist-cover' key={key} src={item.images[0].url} alt='Artist Cover'/>
-                        </div>
-                      ))}
+                      {playlists.items && playlists.items.map((item, key) => {
+                        if(item.images && item.images[0] && item.images[0].url ){
+                          return(
+                            <div className="slide">
+                              <img className='playlist-cover' key={key} src={item.images[0].url} alt='Artist Cover'/>
+                            </div>
+                            )
+                        } else{
+                          return null
+                        }
+
+                      })}
                       </div>
                   </div>
               </Grid>
               <Grid item xs={3} style={{marginTop: "80px"}}>
-                { profile.images && 
+                { profile.images && profile.images[0] && profile.images[0].url &&
                   <img style={{borderRadius:'50%', boxShadow: '0px 0px 48px 0px #505050'}} src={profile.images[0].url} alt="profile" /> 
                 }
               </Grid>
@@ -167,14 +194,14 @@ const Home = () => {
                   <h2 style={{ color: 'white', paddingLeft: '64px'}} className='title-2'>Top Playlists you can't live without</h2>
                 </Grid>
                 {playlists.items.map((item, key) => {
-                    if(key < 4) 
+                    if(key < 4 && item.images && item.images[0] && item.images[0].url && item.name ){ 
                     return <Grid item>
                         <img style={{ height: '256px', boxShadow: '0px 0px 12px 0px #505050', borderRadius:'3%' }} src={item.images[0].url} alt={item.name} />
                         <Grid item xs={12}>
                           <p style={{ color: 'white', fontSize: '22px', fontWeight: 'bold' }}>{item.name}</p>
                         </Grid>
                       </Grid>
-                })}
+                }})}
               </Grid>
               : null}
         </div>

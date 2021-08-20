@@ -5,12 +5,15 @@ const REDIRECT_URL_AFTER_LOGIN = process.env.REACT_APP_REDIRECT_URL; // once log
 const SPACE_DELIMITER = "%20";
 const SCOPES = [
     "user-top-read",
+    "user-read-email",
     "user-read-private",
     "user-library-read",
     "user-library-modify",
     "user-read-currently-playing",
     "user-read-playback-state",
     "playlist-read-private",
+    "playlist-modify-public",
+    "playlist-modify-private",
     "user-modify-playback-state"
 ];
 const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
