@@ -60,7 +60,7 @@ const PlaylistTop = (props) => {
         await fetch(url, options)
             .then(response => response.json())
             .then(data => {})
-            .catch(error => setErrorFollowPlaylist(true));
+            .catch(error => {});
     }
 
     const handlePlayPlaylist = async (playlistId) => {
