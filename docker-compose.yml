@@ -3,7 +3,7 @@ services:
   web:
     build: ./frontend
     ports:
-      - "3000:3000"
+      - "6000:6000"
     restart: always
     env_file:
       - ./frontend/.env
@@ -60,7 +60,7 @@ services:
     image: grafana/grafana:latest
     restart: unless-stopped
     ports:
-      - 6000:6000
+      - 3000:3000
     volumes: 
       - grafana_storage:/var/lib/grafana
     depends_on: 
