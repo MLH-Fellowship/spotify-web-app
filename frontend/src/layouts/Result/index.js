@@ -18,7 +18,7 @@ function Result(props){
         <>
             <Grid container direction="column">
                 <Grid item xs={12}>
-                    <img style={{ height: '420px', boxShadow: '0px 0px 12px 0px #505050', borderRadius:'3%' }} src={capturedImage} alt={'Captured img'} /> 
+                    <img style={{ height: '420px', marginTop: 64, boxShadow: '0px 0px 12px 0px #505050', borderRadius:'3%' }} src={capturedImage} alt={'Captured img'} /> 
                 </Grid>
             </Grid>
             <Grid container direction="column" justifyContent="center">
