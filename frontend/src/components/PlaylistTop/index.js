@@ -81,12 +81,12 @@ const PlaylistTop = (props) => {
                     <Grid item>
                         <h3 className='playlist-title'>{props.playlist.name}</h3>
                     </Grid>
-                    <Grid item xs={6} style={{ paddingTop: '5%' }}>
+                    <Grid container direction="row">
                         <button onClick={() => handlePlayPlaylist(props.playlist.id)} style={{borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,1) 32%, rgba(186,184,184,1) 34%, rgba(25,20,20,1) 37%)', borderColor: '#191414', borderStyle: 'solid'}}>
                             <PlayCircleFilledIcon style={{ color: '#1DB954', fontSize: 100, }} />
                         </button>
                         <button onClick={() => handleFollowPlaylist(props.playlist.id)} style={{borderColor: '#191414', background: '#191414', borderStyle: 'solid'}}>
-                            <FavoriteIcon style={{ color: 'white', fontSize: 42, paddingBottom: 24, paddingLeft: 24 }} />
+                            <FavoriteIcon style={{ color: 'white', fontSize: 42, paddingLeft: 24 }} />
                         </button>
                     </Grid>
                 </Grid>
