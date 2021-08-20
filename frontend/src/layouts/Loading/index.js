@@ -64,7 +64,7 @@ function Loading(props) {
                 },
                 headers: { "Content-Type": "application/json" }
             }).then(function(response) {
-                    let playlistId = response.data.playlists.items[0].id;
+                    let playlistId = response.data.playlists.items[0].id || '37i9dQZF1DX7Jl5KP2eZaS';
                     getData(`https://api.spotify.com/v1/playlists/${playlistId}`, setPlaylistData);
                     
             }).catch(function(response) {
