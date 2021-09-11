@@ -3,8 +3,6 @@ SpotiMe is a react web app that uses the Spotify API and Machine Learning Emotio
 Once the user logs in with their spotify account, the website shows the summary of the user's music breakdown. 
 The user can click the button "Play" to initiate a camera to capture the user's face (through front camera/webcam) which is analyzed by our ML model to detect the user's emotion. Based on the emotion detected, the user will receive a customized playlist by SpotiME!
 
-Give it a try! https://spotime.duckdns.org
-
 ![Welcome Page](./documentation/welcome.png)
 ![Home Page](./documentation/home.png)
 
